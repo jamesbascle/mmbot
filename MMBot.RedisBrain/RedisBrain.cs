@@ -9,11 +9,11 @@ namespace MMBot.RedisBrain
 {
     public class RedisBrain : IBrain, IMustBeInitializedWithRobot
     {
-        private Robot _robot;
+        private IRobot _robot;
         private string _redisConnect;
         private ConnectionMultiplexer _redis;
 
-        public void Initialize(Robot robot)
+        public void Initialize(IRobot robot)
         {
             try
             {

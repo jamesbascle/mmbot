@@ -11,7 +11,7 @@ namespace MMBot.Tests.CompiledScripts
     {
         private const string Url = "http://asciime.heroku.com/generate_ascii?s={0}";
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"(ascii)( me)? (.*)", async msg =>
             {

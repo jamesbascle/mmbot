@@ -10,7 +10,7 @@ namespace MMBot.Tests.CompiledScripts
     {
         private static readonly Regex NameReplacementRegex  = new Regex(@"\b(mmbot|hubot)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"help\s*(.*)?$", msg =>
             {

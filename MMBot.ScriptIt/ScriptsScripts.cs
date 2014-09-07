@@ -10,7 +10,7 @@ namespace MMBot.ScriptIt
 {
     public class ScriptsScripts : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"scriptthis (.*):(.*)", async msg =>
             {

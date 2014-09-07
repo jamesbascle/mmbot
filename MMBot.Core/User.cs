@@ -34,24 +34,24 @@ namespace MMBot
     public static class UserExtensions
     {
 
-        public static User GetUser(this Robot robot, string id, string name, string room, string adapterId)
+        public static User GetUser(this IRobot robot, string id, string name, string room, string adapterId)
         {
             return new User(id, name, robot.GetUserRoles(name), room, adapterId);            
         }
 
-        public static string[] GetUserRoles(this Robot robot, string userName)
+        public static string[] GetUserRoles(this IRobot robot, string userName)
         {
             userName = userName.ToLower();
             var roleStore = robot.Brain.Get<Dictionary<string, string>>("UserRoleStore").Result ?? new Dictionary<string, string>();
             return roleStore.ContainsKey(userName) ? roleStore[userName].Split(',') : new string[0];
         }
 
-        public static void AddUserToRole(this Robot robot, string userName, string role)
+        public static void AddUserToRole(this IRobot robot, string userName, string role)
         {
             AddUserToRole(robot, userName, new string[] { role });
         }
 
-        public static void AddUserToRole(this Robot robot, string userName,  string[] roles)
+        public static void AddUserToRole(this IRobot robot, string userName,  string[] roles)
         {
             userName = userName.ToLower();
             var roleStore = robot.Brain.Get<Dictionary<string, string>>("UserRoleStore").Result ?? new Dictionary<string, string>();
@@ -63,7 +63,7 @@ namespace MMBot
             robot.Brain.Set("UserRoleStore", roleStore).Wait();
         }
 
-        public static void RemoveUserFromRole(this Robot robot, string userName, string role)
+        public static void RemoveUserFromRole(this IRobot robot, string userName, string role)
         {
             userName = userName.ToLower();
             var roleStore = robot.Brain.Get<Dictionary<string, string>>("UserRoleStore").Result ?? new Dictionary<string, string>();
@@ -91,18 +91,18 @@ namespace MMBot
             return user.Roles.Any(d => d.Equals(role, System.StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public static bool IsInRole(this Robot robot, string userName, string role)
+        public static bool IsInRole(this IRobot robot, string userName, string role)
         {
             userName = userName.ToLower();
             return robot.GetUserRoles(userName).Any(d => d.Equals(role, System.StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public static bool IsAdmin(this User user, Robot robot)
+        public static bool IsAdmin(this User user, IRobot robot)
         {
             return robot.IsAdmin(user.Name);
         }
 
-        public static bool IsAdmin(this Robot robot, string userName)
+        public static bool IsAdmin(this IRobot robot, string userName)
         {
             return robot.Admins.Any(d => d.Equals(userName, System.StringComparison.InvariantCultureIgnoreCase));
         }

@@ -11,7 +11,7 @@ namespace MMBot.Tests.CompiledScripts
         Random _random = new Random(DateTime.Now.Millisecond);
         Regex _httpRegex = new Regex(@"^https?:\/\/", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"(image|img)( me)? (.*)", msg => ImageMe(msg, msg.Match[3], url => msg.Send(url)));
 

@@ -35,7 +35,7 @@ namespace MMBot.Powershell
                     return psObject.ToString();
         }
 
-        public static IEnumerable<string> ExecutePowershellCommand(this Robot robot, string command)
+        public static IEnumerable<string> ExecutePowershellCommand(this IRobot robot, string command)
         {
             var host = new MMBotHost(robot);
             using (var runspace = RunspaceFactory.CreateRunspace(host))
@@ -71,7 +71,7 @@ namespace MMBot.Powershell
             }
         }
 
-        public static IEnumerable<string> ExecutePowershellModule(this Robot robot, string moduleCommand)
+        public static IEnumerable<string> ExecutePowershellModule(this IRobot robot, string moduleCommand)
         {
             var scriptFolder = robot.GetConfigVariable("MMBOT_POWERSHELL_SCRIPTSPATH");
 
@@ -141,9 +141,9 @@ namespace MMBot.Powershell
 
         private string _name = "mmbot";
 
-        Robot _robot;
+        IRobot _robot;
 
-        public MMBotHost(Robot robot)
+        public MMBotHost(IRobot robot)
         {
             _name = robot.Name;
             _robot = robot;
@@ -241,9 +241,9 @@ namespace MMBot.Powershell
 
         #region PSHostUserInterface Members
 
-        private Robot _robot;
+        private IRobot _robot;
 
-        public MMBotPSUserInterface(Robot robot)
+        public MMBotPSUserInterface(IRobot robot)
         {
             _robot = robot;
         }

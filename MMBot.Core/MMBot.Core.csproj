@@ -166,6 +166,7 @@
     <Compile Include="HttpWrapper.cs" />
     <Compile Include="Brains\IBrain.cs" />
     <Compile Include="IMustBeInitializedWithRobot.cs" />
+    <Compile Include="IRobot.cs" />
     <Compile Include="IRobotPluginLocator.cs" />
     <Compile Include="Listeners\CatchAllListener.cs" />
     <Compile Include="Listeners\IListener.cs" />

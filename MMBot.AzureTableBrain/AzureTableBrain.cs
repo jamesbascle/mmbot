@@ -9,11 +9,11 @@ namespace MMBot.AzureTableBrain
 {
     public class AzureTableBrain : IBrain, IMustBeInitializedWithRobot
     {
-        private Robot _robot;
+        private IRobot _robot;
         private CloudTable _table;
         private string _partition;
 
-        public void Initialize(Robot robot)
+        public void Initialize(IRobot robot)
         {
             _robot = robot;
             

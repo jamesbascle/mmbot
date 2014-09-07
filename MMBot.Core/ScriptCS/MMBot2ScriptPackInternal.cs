@@ -5,11 +5,11 @@ using ScriptCs.Contracts;
 namespace MMBot.ScriptCS
 {
     [PartNotDiscoverable]
-    public class MMBot2ScriptPackInternal : IScriptPack<Robot>
+    public class MMBot2ScriptPackInternal : IScriptPack<IRobot>
     {
-        private Robot _robot;
+        private IRobot _robot;
 
-        public MMBot2ScriptPackInternal(Robot robot)
+        public MMBot2ScriptPackInternal(IRobot robot)
         {
             _robot = robot;
         }
@@ -29,7 +29,7 @@ namespace MMBot.ScriptCS
 
         }
 
-        Robot IScriptPack<Robot>.Context
+        IRobot IScriptPack<IRobot>.Context
         {
             get { return _robot; }
             set { _robot = value; }

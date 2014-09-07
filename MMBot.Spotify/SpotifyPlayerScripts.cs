@@ -20,9 +20,9 @@ namespace MMBot.Spotify
     {
         private readonly Regex _spotifyLinkRegex = new Regex(@"spotify:(album|track|user:[a-zA-Z0-9]+:playlist):[a-zA-Z0-9]+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private SpotifyPlayer _player;
-        private Robot _robot;
+        private IRobot _robot;
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             _robot = robot;
             _player = new SpotifyPlayer(robot);

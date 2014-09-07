@@ -28,9 +28,9 @@ namespace MMBot.Brains
             }
         }
 
-        private Robot _robot;
+        private IRobot _robot;
 
-        public void Initialize(Robot robot)
+        public void Initialize(IRobot robot)
         {
             _robot = robot;
             BlobCache.ApplicationName = "MMBotBrain";

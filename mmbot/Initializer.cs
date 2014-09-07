@@ -11,7 +11,7 @@ namespace mmbot
 {
     public static class Initializer
     {
-        public static async Task<Robot> StartBot(Options options)
+        public static async Task<IRobot> StartBot(Options options)
         {
             if (options.Test && (options.ScriptFiles == null || !options.ScriptFiles.Any()))
             {
@@ -44,7 +44,7 @@ namespace mmbot
                 builder.EnableScriptWatcher();
             }
 
-            Robot robot = null;
+            IRobot robot = null;
 
             try
             {

@@ -16,7 +16,7 @@ namespace MMBot.Tests.CompiledScripts
                     .FirstOrDefault();
         }
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             var languageChoices = string.Join("|", _languages.Select(kvp => kvp.Value));
             var regex = string.Format("translate(?: me)?" +

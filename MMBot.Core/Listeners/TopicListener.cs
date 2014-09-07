@@ -9,10 +9,10 @@ namespace MMBot
 {
     public class TopicListener : IListener
     {
-        private readonly Robot _robot;
+        private readonly IRobot _robot;
         private readonly Action<IResponse<TopicMessage>> _callback;
 
-        public TopicListener(Robot robot, Action<IResponse<TopicMessage>> callback)
+        public TopicListener(IRobot robot, Action<IResponse<TopicMessage>> callback)
         {
             _robot = robot;
             _callback = callback;

@@ -6,7 +6,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class Pug : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"pug me", async msg =>
             {

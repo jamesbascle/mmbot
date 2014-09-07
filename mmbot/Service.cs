@@ -11,7 +11,7 @@ namespace mmbot
         private Options _options;
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
         private Thread _thread;
-        private Robot _robot;
+        private IRobot _robot;
 
         public Service(Options options)
         {

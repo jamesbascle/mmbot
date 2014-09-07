@@ -9,7 +9,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     class CatchAllTest : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.CatchAll(msg => msg.Send(string.Format("Caught msg {0} from {1}", msg.Message.Text, msg.Message.User.Name)));
         }

@@ -17,9 +17,14 @@ using LogLevel = Common.Logging.LogLevel;
 
 namespace MMBot
 {
-    public class Robot : IScriptPackContext, IDisposable
+    public class Robot : IRobot
     {
-        public readonly List<ScriptMetadata> ScriptData = new List<ScriptMetadata>();
+        public List<ScriptMetadata> ScriptData
+        {
+            get { return _scriptData; }
+        }
+
+        private readonly List<ScriptMetadata> _scriptData = new List<ScriptMetadata>();
         protected bool _isConfigured = false;
         private readonly IDictionary<string, IAdapter> _adapters = new Dictionary<string, IAdapter>();
         private readonly List<IListener> _listeners = new List<IListener>();
@@ -109,7 +114,7 @@ namespace MMBot
 
         public List<string> HelpCommands
         {
-            get { return ScriptData.SelectMany(d => d.Commands).Where(d => d.HasValue()).ToList(); }
+            get { return _scriptData.SelectMany(d => d.Commands).Where(d => d.HasValue()).ToList(); }
         }
 
         public LoggerConfigurator LogConfig { get; private set; }
@@ -273,16 +278,16 @@ namespace MMBot
 
         public void AddHelp(params string[] helpMessages)
         {
-            if (!ScriptData.Any(d => d.Name == "UnReferenced"))
-                ScriptData.Add(new ScriptMetadata() { Name = "UnReferenced", Description = "Commands not referenced in a script file's summary details" });
-            var unreferencedHelpCommands = ScriptData.Where(d => d.Name == "UnReferenced").First();
+            if (!_scriptData.Any(d => d.Name == "UnReferenced"))
+                _scriptData.Add(new ScriptMetadata() { Name = "UnReferenced", Description = "Commands not referenced in a script file's summary details" });
+            var unreferencedHelpCommands = _scriptData.Where(d => d.Name == "UnReferenced").First();
 
             unreferencedHelpCommands.Commands.AddRange(helpMessages.Except(unreferencedHelpCommands.Commands).ToArray());
         }
 
         public void AddMetadata(ScriptMetadata metadata)
         {
-            ScriptData.Add(metadata);
+            _scriptData.Add(metadata);
         }
 
 
@@ -414,7 +419,7 @@ namespace MMBot
                 {
                     _scriptRunner.RunScript(script);
                 }
-                Emit("ScriptsLoaded", this.ScriptData.Select(d => d.Name));
+                Emit("ScriptsLoaded", this._scriptData.Select(d => d.Name));
             }
 
             if (Watch)

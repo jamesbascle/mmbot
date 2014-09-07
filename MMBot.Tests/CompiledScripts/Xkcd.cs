@@ -9,7 +9,7 @@ namespace MMBot.Tests.CompiledScripts
     // Ported from https://github.com/github/hubot-scripts/blob/master/src/scripts/xkcd.coffee
     public class Xkcd : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"xkcd(\s+latest)?$", async msg =>
             {

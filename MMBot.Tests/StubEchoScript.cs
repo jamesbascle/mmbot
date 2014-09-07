@@ -6,7 +6,7 @@ namespace MMBot.Tests
     public class StubEchoScript : IMMBotScript
     {
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond("(.*)", msg => msg.Send(msg.Match[1]));
         }

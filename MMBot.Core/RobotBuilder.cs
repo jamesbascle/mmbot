@@ -36,12 +36,12 @@ namespace MMBot
             _logConfig = logConfig;
         }
         
-        public Robot Build()
+        public IRobot Build()
         {
             return Build(c => { });
         }
 
-        public Robot Build(Action<TinyIoCContainer> preBuild)
+        public IRobot Build(Action<TinyIoCContainer> preBuild)
         {
             preBuild = preBuild ?? (c => { });
 
@@ -64,7 +64,7 @@ namespace MMBot
 
             var container = TinyIoCContainer.Current;
 
-            container.Register<Robot>();
+            container.Register(typeof(IRobot), typeof(Robot)).AsMultiInstance();
             container.Register(robotPluginLocator);
             container.Register(typeof (IBrain), _brainType ?? typeof (AkavacheBrain)).AsSingleton();
             container.Register(typeof (IScriptStore), _scriptStoreType ?? typeof (LocalScriptStore)).AsSingleton();
@@ -102,7 +102,7 @@ namespace MMBot
                 }
             }
 
-            var robot = container.Resolve<Robot>(
+            var robot = container.Resolve<IRobot>(
                 new NamedParameterOverloads(new Dictionary<string, object>
                 {
                     {"name", _name ?? _config.GetValueOrDefault("MMBOT_ROBOT_NAME") ?? "mmbot"},

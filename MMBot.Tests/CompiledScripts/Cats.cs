@@ -11,7 +11,7 @@ namespace MMBot.Tests.CompiledScripts
     {
         private const string Url = "http://thecatapi.com/api/images/get?format=xml&results_per_page={0}&api_key=MTAzNjQ";
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"(cat|cats)( gif)( \d+)?$", async msg =>
             {

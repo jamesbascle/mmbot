@@ -6,7 +6,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class Ping : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"PING$",msg => msg.Send("PONG"));
 

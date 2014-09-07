@@ -15,9 +15,9 @@ namespace MMBot
 {
     public class RobotLogAppender : AppenderSkeleton
     {
-        private Robot _robot;
+        private IRobot _robot;
 
-        public RobotLogAppender(Robot robot)
+        public RobotLogAppender(IRobot robot)
         {
             _robot = robot;
         }

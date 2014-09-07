@@ -7,7 +7,7 @@ namespace MMBot.Tests.CompiledScripts
 
     public class Urban : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"what ?is ([^\?]*)[\?]*", async msg =>
             {

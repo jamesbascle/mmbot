@@ -9,11 +9,11 @@ namespace MMBot
     [DebuggerDisplay("{Source.Name} - {_regex}")]
     public class TextListener : IListener
     {
-        private readonly Robot _robot;
+        private readonly IRobot _robot;
         private readonly Regex _regex;
         private readonly Action<IResponse<TextMessage>> _callback;
 
-        public TextListener(Robot robot, Regex regex, Action<IResponse<TextMessage>> callback)
+        public TextListener(IRobot robot, Regex regex, Action<IResponse<TextMessage>> callback)
         {
             _robot = robot;
             _regex = regex;

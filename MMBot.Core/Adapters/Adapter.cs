@@ -8,7 +8,7 @@ namespace MMBot
 {
     public abstract class Adapter : IAdapter, IMustBeInitializedWithRobot
     {
-        protected Robot Robot { get; private set; }
+        protected IRobot Robot { get; private set; }
 
         protected ILog Logger { get; private set; }
         public string Id { get; private set; }
@@ -21,7 +21,7 @@ namespace MMBot
             LogRooms = new Collection<string>();
         }
 
-        public virtual void Initialize(Robot robot)
+        public virtual void Initialize(IRobot robot)
         {
             Robot = robot;
         }

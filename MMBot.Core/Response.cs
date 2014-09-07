@@ -11,7 +11,7 @@ namespace MMBot
 {
     public abstract class Response
     {
-        public static IResponse<T> Create<T>(Robot robot, T message, MatchResult matchResult) where T : Message
+        public static IResponse<T> Create<T>(IRobot robot, T message, MatchResult matchResult) where T : Message
         {
             if (message is TextMessage)
             {
@@ -21,7 +21,7 @@ namespace MMBot
             throw new NotImplementedException();
         }
 
-        public static IResponse<T> Create<T>(Robot robot, T message) where T : Message
+        public static IResponse<T> Create<T>(IRobot robot, T message) where T : Message
         {
             if (message is EnterMessage || message is LeaveMessage || message is CatchAllMessage)
             {
@@ -54,10 +54,10 @@ namespace MMBot
 
     public class Response<T> : IResponse<T> where T : Message
     {
-        private readonly Robot _robot;
+        private readonly IRobot _robot;
         private readonly Envelope _envelope;
 
-        public Response(Robot robot, T textMessage, MatchResult matchResult)
+        public Response(IRobot robot, T textMessage, MatchResult matchResult)
         {
             _robot = robot;
             
@@ -67,7 +67,7 @@ namespace MMBot
             Message = textMessage;
         }
 
-        public Response(Robot robot, T rosterMessage)
+        public Response(IRobot robot, T rosterMessage)
         {
             _robot = robot;
             _envelope = new Envelope(rosterMessage);

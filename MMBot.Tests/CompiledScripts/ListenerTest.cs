@@ -8,9 +8,9 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class ListenerTest : IMMBotScript
     {
-        private Robot _robot;
+        private IRobot _robot;
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             _robot = robot;
 

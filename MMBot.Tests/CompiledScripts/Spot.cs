@@ -6,7 +6,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class Spot : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"spot me winning", msg =>
             {

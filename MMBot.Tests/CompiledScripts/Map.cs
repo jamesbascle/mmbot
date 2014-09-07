@@ -7,7 +7,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class Map : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond("(?:(satellite|terrain|hybrid)[- ])?map me (.+)", msg =>
             {

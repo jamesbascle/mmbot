@@ -193,7 +193,7 @@ namespace MMBot.Tests
             }
         }
 
-        private async Task<TestNancyRouter> SetupRoute(Action<Robot> setup)
+        private async Task<TestNancyRouter> SetupRoute(Action<IRobot> setup)
         {
             var robot = new RobotBuilder(new LoggerConfigurator(LogLevel.All))
                         .UseAdapter<StubAdapter>()
@@ -224,13 +224,13 @@ namespace MMBot.Tests
                 
             }
 
-            public void Initialize(Robot robot)
+            public void Initialize(IRobot robot)
             {
                 __robot = robot;
             }
 
             private TestServer _server;
-            private Robot __robot;
+            private IRobot __robot;
 
             public TestServer Server
             {

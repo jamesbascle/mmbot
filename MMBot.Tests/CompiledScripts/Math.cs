@@ -6,7 +6,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class Math : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"(calc|calculate|calculator|convert|math|maths)( me)? (.*)", async msg =>
             {

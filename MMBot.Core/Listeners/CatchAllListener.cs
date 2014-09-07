@@ -9,10 +9,10 @@ namespace MMBot
 {
     public class CatchAllListener : IListener
     {
-        private readonly Robot _robot;
+        private readonly IRobot _robot;
         private readonly Action<IResponse<CatchAllMessage>> _callback;
 
-        public CatchAllListener(Robot robot, Action<IResponse<CatchAllMessage>> callback)
+        public CatchAllListener(IRobot robot, Action<IResponse<CatchAllMessage>> callback)
         {
             _robot = robot;
             _callback = callback;

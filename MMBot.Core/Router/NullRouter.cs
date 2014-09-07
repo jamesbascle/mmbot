@@ -49,7 +49,7 @@ namespace MMBot.Router
 
         public IDictionary<Route, Func<OwinContext, object>> Routes { get; private set; }
 
-        public void Initialize(Robot robot)
+        public void Initialize(IRobot robot)
         {
             
         }

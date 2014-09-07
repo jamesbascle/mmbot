@@ -5,7 +5,7 @@ namespace MMBot
 {
     public class Listener<T> : IListener where T : Message
     {
-        private readonly Robot _robot;
+        private readonly IRobot _robot;
         private readonly Func<T, MatchResult> _matcher;
         private readonly Action<IResponse<T>> _callback;
 
@@ -14,7 +14,7 @@ namespace MMBot
 
         }
 
-        public Listener(Robot robot, Func<T, MatchResult> matcher, Action<IResponse<T>> callback)
+        public Listener(IRobot robot, Func<T, MatchResult> matcher, Action<IResponse<T>> callback)
         {
             _robot = robot;
             _matcher = matcher;

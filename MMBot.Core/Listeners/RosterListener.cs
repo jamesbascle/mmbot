@@ -5,17 +5,17 @@ namespace MMBot
 {
     public class RosterListener : IListener
     {
-        private readonly Robot _robot;
+        private readonly IRobot _robot;
         private readonly Action<IResponse<EnterMessage>> _enterCallback;
         private readonly Action<IResponse<LeaveMessage>> _leaveCallback;
 
-        public RosterListener(Robot robot, Action<IResponse<EnterMessage>> callback)
+        public RosterListener(IRobot robot, Action<IResponse<EnterMessage>> callback)
         {
             _robot = robot;
             _enterCallback = callback;
         }
 
-        public RosterListener(Robot robot, Action<IResponse<LeaveMessage>> callback)
+        public RosterListener(IRobot robot, Action<IResponse<LeaveMessage>> callback)
         {
             _robot = robot;
             _leaveCallback = callback;

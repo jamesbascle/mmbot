@@ -51,7 +51,7 @@ namespace MMBot.Spotify
 
         private static string userAgent = CLIENT_NAME;
         private Session _session;
-        private readonly Robot _robot;
+        private readonly IRobot _robot;
         private readonly List<Track> _queue = new List<Track>();
         private Track _currentTrack = null;
         private string _loungeRoom;
@@ -68,7 +68,7 @@ namespace MMBot.Spotify
         }
 
 
-        public SpotifyPlayer(Robot robot)
+        public SpotifyPlayer(IRobot robot)
         {
             _robot = robot;
         }

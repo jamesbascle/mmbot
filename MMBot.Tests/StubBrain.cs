@@ -8,9 +8,9 @@ namespace MMBot.Tests
     public class StubBrain : IBrain, IMustBeInitializedWithRobot
     {
         private Dictionary<string, string> _store;
-        private Robot _robot;
+        private IRobot _robot;
 
-        public void Initialize(Robot robot)
+        public void Initialize(IRobot robot)
         {
             _robot = robot;
             _store = new Dictionary<string, string>();

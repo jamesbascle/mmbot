@@ -5,7 +5,7 @@ namespace MMBot.Scripts
 {
     public interface IMMBotScript
     {
-        void Register(Robot robot);
+        void Register(IRobot robot);
         
         IEnumerable<string> GetHelp();
     }

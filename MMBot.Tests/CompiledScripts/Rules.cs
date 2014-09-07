@@ -21,7 +21,7 @@ namespace MMBot.Tests.CompiledScripts
             "A developer must protect its own existence as long as such protection does not conflict with the First or Second Law."
         };
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"(what are )?the (three |3 )?(rules|laws)", msg =>
             {

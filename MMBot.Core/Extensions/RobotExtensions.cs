@@ -11,7 +11,7 @@ namespace MMBot
         /// <param name="robot">The robot</param>
         /// <param name="baseUrl">The base url of the HTTP endpoint</param>
         /// <returns>An <see cref="HttpWrapper"/> instance</returns>
-        public static HttpWrapper Http(this Robot robot, string baseUrl)
+        public static HttpWrapper Http(this IRobot robot, string baseUrl)
         {
             return new HttpWrapper(baseUrl, robot.Logger);
         }
@@ -23,7 +23,7 @@ namespace MMBot
         /// <param name="timespan">The repeat interval</param>
         /// <param name="action">The action to schedule</param>
         /// <returns>A disposable which, when disposed, will cancel the schedule</returns>
-        public static IDisposable ScheduleRepeat(this Robot robot, TimeSpan timespan, Action action)
+        public static IDisposable ScheduleRepeat(this IRobot robot, TimeSpan timespan, Action action)
         {
             return Observable.Interval(timespan).Subscribe(_ => action());
         }

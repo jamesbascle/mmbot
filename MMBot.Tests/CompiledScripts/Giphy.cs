@@ -10,7 +10,7 @@ namespace MMBot.Tests.CompiledScripts
     public class Giphy : IMMBotScript
     {
         private static string _baseUri = "http://api.giphy.com/v1";
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             var apiKey = GetApiKey(robot);
 
@@ -24,13 +24,13 @@ namespace MMBot.Tests.CompiledScripts
             });
         }
 
-        private static string GetApiKey(Robot robot)
+        private static string GetApiKey(IRobot robot)
         {
             return robot.GetConfigVariable("MMBOT_GIPHY_APIKEY") ?? "dc6zaTOxFJmzC";
 
         }
 
-        public static async Task GifMe(Robot robot, string query, IResponse<TextMessage> msg )
+        public static async Task GifMe(IRobot robot, string query, IResponse<TextMessage> msg )
         {
             await GifMeCore(msg, query, GetApiKey(robot));
         }

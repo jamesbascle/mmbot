@@ -22,7 +22,7 @@ namespace MMBot.Scripts
 {
     public class ScriptRunner : IMustBeInitializedWithRobot, IScriptRunner
     {
-        private Robot _robot;
+        private IRobot _robot;
         private ILog _logger;
         private string[] _defaultMMBotReferences = new[] {"Microsoft.Owin"};
 
@@ -38,7 +38,7 @@ namespace MMBot.Scripts
 
         public ScriptSource CurrentScriptSource { get; set; }
 
-        public void Initialize(Robot robot)
+        public void Initialize(IRobot robot)
         {
             _robot = robot;
         }
@@ -179,7 +179,7 @@ namespace MMBot.Scripts
                         "MMBot", "Newtonsoft.Json", "Newtonsoft.Json.Linq", "HtmlAgilityPack", "System.Xml", "System.Net",
                         "System.Net.Http"
                     }).ToArray());
-                scriptServiceRoot.Executor.AddReference<Robot>();
+                scriptServiceRoot.Executor.AddReference<IRobot>();
                 scriptServiceRoot.Executor.AddReference<ILog>();
                 scriptServiceRoot.Executor.AddReference<JArray>();
                 scriptServiceRoot.Executor.AddReference<HtmlDocument>();

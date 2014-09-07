@@ -5,7 +5,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class Youtube : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"(youtube|yt)( me)? (.*)", async msg =>
             {

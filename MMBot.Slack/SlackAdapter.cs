@@ -42,7 +42,7 @@ namespace MMBot.Slack
         }
 
 
-        public override void Initialize(Robot robot)
+        public override void Initialize(IRobot robot)
         {
             base.Initialize(robot);
 

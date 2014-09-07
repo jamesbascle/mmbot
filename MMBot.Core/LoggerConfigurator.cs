@@ -33,7 +33,7 @@ namespace MMBot
             AddAppender(new log4net.Appender.ConsoleAppender());
         }
 
-        public void ConfigureForRobot(Robot robot)
+        public void ConfigureForRobot(IRobot robot)
         {
             AddAppender(new RobotLogAppender(robot));
         }

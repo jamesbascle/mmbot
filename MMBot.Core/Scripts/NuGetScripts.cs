@@ -24,7 +24,7 @@ namespace MMBot.Scripts
         const string Update = "update";
         const string Restart = "restart";
 
-        private void RememberConfiguredSources(Robot robot)
+        private void RememberConfiguredSources(IRobot robot)
         {
 	        var configuredSources = robot.GetConfigVariable(NuGetRepositoriesSetting) ?? string.Empty;
 	        foreach(var source in configuredSources.Split(','))
@@ -33,7 +33,7 @@ namespace MMBot.Scripts
 	        }
         }
 
-        private List<string> GetRememberedSources(Robot robot)
+        private List<string> GetRememberedSources(IRobot robot)
         {
 	        var sources = robot.Brain.Get<List<string>>(NuGetRepositoriesSetting).Result;
 	        if(sources == null)
@@ -45,12 +45,12 @@ namespace MMBot.Scripts
 	        return sources;
         }
 
-        private void Remember(string key, object value, Robot robot)
+        private void Remember(string key, object value, IRobot robot)
         {
 	        robot.Brain.Set(key, value);
         }
 
-        private bool AddSource(string source, Robot robot)
+        private bool AddSource(string source, IRobot robot)
         {
 	        var sources = GetRememberedSources(robot);
 	        if (sources.Contains(source))
@@ -62,7 +62,7 @@ namespace MMBot.Scripts
             return true;
         }
 
-        private bool RemoveSource(string source, Robot robot)
+        private bool RemoveSource(string source, IRobot robot)
         {
 	        var sources = GetRememberedSources(robot);
 	        if (sources.Contains(source))
@@ -74,7 +74,7 @@ namespace MMBot.Scripts
             return false;
         }
         
-        private void RememberConfiguredAliases(Robot robot)
+        private void RememberConfiguredAliases(IRobot robot)
         {
 	        var configuredAliases = robot.GetConfigVariable(NuGetPackageAliasesSetting) ?? string.Empty;
             foreach (var alias in configuredAliases.Split(new []{','}, StringSplitOptions.RemoveEmptyEntries))
@@ -83,7 +83,7 @@ namespace MMBot.Scripts
             }
         }
 
-        private Dictionary<string,string> GetRememberedAliases(Robot robot)
+        private Dictionary<string,string> GetRememberedAliases(IRobot robot)
         {
 	        var aliases = robot.Brain.Get<Dictionary<string,string>>(NuGetPackageAliasesSetting).Result;
 	        if(aliases == null)
@@ -94,7 +94,7 @@ namespace MMBot.Scripts
 	        return aliases;
         }
 
-        private void AddAlias(string alias, Robot robot)
+        private void AddAlias(string alias, IRobot robot)
         {
 	        var aliases = GetRememberedAliases(robot);
 	        var parts = alias.Split('=');
@@ -107,7 +107,7 @@ namespace MMBot.Scripts
 	        Remember(NuGetPackageAliasesSetting, aliases, robot);
         }
 
-        private void RemoveAlias(string alias, Robot robot)
+        private void RemoveAlias(string alias, IRobot robot)
         {
 	        var aliases = GetRememberedAliases(robot);
 	        alias = alias.Split(',')[0];
@@ -115,7 +115,7 @@ namespace MMBot.Scripts
 	        Remember(NuGetPackageAliasesSetting, aliases, robot);
         }
 
-        private void RememberConfiguredAutoReset(Robot robot)
+        private void RememberConfiguredAutoReset(IRobot robot)
         {
             var autoReset = robot.GetConfigVariable(NuGetResetAfterUpdateSetting) ?? string.Empty;
             bool autoResetValue;
@@ -126,7 +126,7 @@ namespace MMBot.Scripts
             Remember(NuGetResetAfterUpdateSetting, autoResetValue, robot);
         }
 
-        private bool ShouldAutoResetAfterUpdate(Robot robot)
+        private bool ShouldAutoResetAfterUpdate(IRobot robot)
         {
             return bool.Parse(robot.Brain.Get<string>(NuGetResetAfterUpdateSetting).Result);
         }
@@ -144,7 +144,7 @@ namespace MMBot.Scripts
                 }));
         }
 
-        private AggregateRepository BuildPackagesRepository(Robot robot)
+        private AggregateRepository BuildPackagesRepository(IRobot robot)
         {
             var packageSources = GetRememberedSources(robot).Where(s => !string.IsNullOrWhiteSpace(s));
 	        return new AggregateRepository(packageSources
@@ -157,7 +157,7 @@ namespace MMBot.Scripts
 	        return Path.Combine(Directory.GetCurrentDirectory(), "packages");
         }
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             RememberConfiguredSources(robot);
             RememberConfiguredAliases(robot);

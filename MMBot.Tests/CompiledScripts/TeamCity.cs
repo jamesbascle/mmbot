@@ -26,7 +26,7 @@ namespace MMBot.Tests.CompiledScripts
             };
         }
 
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             _username = robot.GetConfigVariable("MMBOT_TEAMCITY_USERNAME");
             _password = robot.GetConfigVariable("MMBOT_TEAMCITY_PASSWORD");
@@ -266,7 +266,7 @@ namespace MMBot.Tests.CompiledScripts
         }
 
 
-        private void GetBuildType(Robot robot, IResponse<TextMessage> msg, string type,
+        private void GetBuildType(IRobot robot, IResponse<TextMessage> msg, string type,
             Action<Exception, HttpResponseMessage, JToken> callback)
         {
             var url = string.Format("{0}/httpAuth/app/rest/buildTypes/{1}", _baseUrl, type);
@@ -277,7 +277,7 @@ namespace MMBot.Tests.CompiledScripts
         }
 
 
-        private void GetCurrentBuilds(Robot robot, IResponse<TextMessage> msg, string type,
+        private void GetCurrentBuilds(IRobot robot, IResponse<TextMessage> msg, string type,
             Action<Exception, HttpResponseMessage, JToken> callback)
         {
             var url = string.IsNullOrEmpty(type)
@@ -287,7 +287,7 @@ namespace MMBot.Tests.CompiledScripts
             InvokeApiCallWithCallback(msg, callback, url);
         }
 
-        private void GetBuildTypes(Robot robot, IResponse<TextMessage> msg, string project,
+        private void GetBuildTypes(IRobot robot, IResponse<TextMessage> msg, string project,
             Action<Exception, HttpResponseMessage, JToken> callback)
         {
             var projectSegment = string.IsNullOrWhiteSpace(project) ? string.Empty : string.Format("/projects/name:{0}", WebUtility.UrlEncode(project));
@@ -303,7 +303,7 @@ namespace MMBot.Tests.CompiledScripts
             }, url);
         }
 
-        private void GetBuilds(Robot robot, IResponse<TextMessage> msg, string project, string configuration, int amount,
+        private void GetBuilds(IRobot robot, IResponse<TextMessage> msg, string project, string configuration, int amount,
             Action<Exception, HttpResponseMessage, JToken> callback)
         {
             var projectSegment = string.IsNullOrWhiteSpace(project) ? string.Empty : string.Format("/projects/name:{0}", WebUtility.UrlEncode(project));
@@ -311,13 +311,13 @@ namespace MMBot.Tests.CompiledScripts
             InvokeApiCallWithCallback(msg, callback, url, new{ locator= string.Format("count:{0},running:any", amount)});
         }
 
-        private void GetProjects(Robot robot, IResponse<TextMessage> msg, Action<Exception, HttpResponseMessage, JToken> callback)
+        private void GetProjects(IRobot robot, IResponse<TextMessage> msg, Action<Exception, HttpResponseMessage, JToken> callback)
         {
             var url = string.Format("{0}/httpAuth/app/rest/projects", _baseUrl);
             InvokeApiCallWithCallback(msg, callback, url);
         }
 
-        private void MapNameToIdForBuildType(Robot robot, IResponse<TextMessage> msg, string name, string project,
+        private void MapNameToIdForBuildType(IRobot robot, IResponse<TextMessage> msg, string name, string project,
             Action<IResponse<TextMessage>, JToken> callback)
         {
             Func<JToken, bool> filter = b => string.Equals((string)b["name"], name, StringComparison.InvariantCultureIgnoreCase) && (string.IsNullOrEmpty(project) || string.Equals((string)b["projectName"], project, StringComparison.InvariantCultureIgnoreCase));
@@ -332,7 +332,7 @@ namespace MMBot.Tests.CompiledScripts
             GetBuildTypes(robot, msg, project, (exception, message, res) => callback(msg, res["buildType"].FirstOrDefault(filter)));
         }
 
-        private void MapAndKillBuilds(Robot robot, IResponse<TextMessage> msg, string name, string id, string project)
+        private void MapAndKillBuilds(IRobot robot, IResponse<TextMessage> msg, string name, string id, string project)
         {
             var comment = string.Format("killed by {0}", robot.Alias);
             GetCurrentBuilds(robot, msg, null, (exception, res, body) =>

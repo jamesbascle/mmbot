@@ -5,7 +5,7 @@ namespace MMBot.Tests.CompiledScripts
 {
     public class TextListenerTest : IMMBotScript
     {
-        public void Register(Robot robot)
+        public void Register(IRobot robot)
         {
             robot.Respond(@"(gif|giphy)( me)? (.*)", msg => msg.Send(msg.Match[3]));
         }
