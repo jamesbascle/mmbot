@@ -14,7 +14,7 @@ namespace MMBot
             }
         }
 
-        public User User { get; set; }
+        public IUser User { get; set; }
 
         public string Room { get; set; }
 

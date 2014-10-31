@@ -304,10 +304,10 @@ namespace MMBot.Slack
             });
         }
 
-        private User GetAuthor(IFormCollection form)
+        private IUser GetAuthor(IFormCollection form)
         {
             
-            return new User(
+            return new IUser(
                 form["user_id"],
                 form["user_name"],
                 Robot.GetUserRoles(form["user_name"]),

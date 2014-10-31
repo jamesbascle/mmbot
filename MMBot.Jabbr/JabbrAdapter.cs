@@ -113,14 +113,14 @@ namespace MMBot.Jabbr
             }
         }
 
-        private void OnUserLeft(User user, string room)
+        private void OnUserLeft(IUser user, string room)
         {
             Logger.Info(string.Format("{0} left {1}", user.Name, room));
 
             Task.Run(() => Robot.Receive(new LeaveMessage(user)));
         }
 
-        private void OnUserJoined(User user, string room, bool isOwner)
+        private void OnUserJoined(IUser user, string room, bool isOwner)
         {
             Logger.Info(string.Format("{0} joined {1}", user.Name, room));
             Task.Run(() => Robot.Receive(new EnterMessage(user)));

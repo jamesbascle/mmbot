@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MMBot
 {
-    public class User
+    public class User : IUser
     {
         internal User()
         {
@@ -34,7 +34,7 @@ namespace MMBot
     public static class UserExtensions
     {
 
-        public static User GetUser(this IRobot robot, string id, string name, string room, string adapterId)
+        public static IUser GetUser(this IRobot robot, string id, string name, string room, string adapterId)
         {
             return new User(id, name, robot.GetUserRoles(name), room, adapterId);            
         }
@@ -86,7 +86,7 @@ namespace MMBot
             }
         }
 
-        public static bool IsInRole(this User user, string role)
+        public static bool IsInRole(this IUser user, string role)
         {
             return user.Roles.Any(d => d.Equals(role, System.StringComparison.InvariantCultureIgnoreCase));
         }
@@ -97,7 +97,7 @@ namespace MMBot
             return robot.GetUserRoles(userName).Any(d => d.Equals(role, System.StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public static bool IsAdmin(this User user, IRobot robot)
+        public static bool IsAdmin(this IUser user, IRobot robot)
         {
             return robot.IsAdmin(user.Name);
         }
@@ -107,4 +107,8 @@ namespace MMBot
             return robot.Admins.Any(d => d.Equals(userName, System.StringComparison.InvariantCultureIgnoreCase));
         }
     }
+}
+
+namespace MMBot
+{
 }

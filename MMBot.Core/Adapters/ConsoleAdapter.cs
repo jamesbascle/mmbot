@@ -9,7 +9,7 @@ namespace MMBot.Adapters
 {
     public class ConsoleAdapter : Adapter
     {
-        private User _user;
+        private IUser _user;
         private Task _listeningTask;
         private readonly CancellationTokenSource _cancellationTokenSource;
 

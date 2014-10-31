@@ -33,7 +33,7 @@ namespace MMBot.Tests
             Assert.Equal("http://foo.com/?foo=Foo&bar=Bar", stubHandler.LastRequest.RequestUri.ToString());
         }
 
-        private static User CreateTestUser()
+        private static IUser CreateTestUser()
         {
             return new User("foo", "foo", new string[0], "testRoom", "stubAdapter");
         }

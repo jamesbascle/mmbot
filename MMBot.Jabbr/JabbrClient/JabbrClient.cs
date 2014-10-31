@@ -101,24 +101,24 @@ namespace MMBot.Jabbr.JabbrClient
     {
         event Action<Models.Message, string> MessageReceived;
         event Action<IEnumerable<string>> LoggedOut;
-        event Action<User, string, bool> UserJoined;
-        event Action<User, string> UserLeft;
+        event Action<IUser, string, bool> UserJoined;
+        event Action<IUser, string> UserLeft;
         event Action<string> Kicked;
         event Action<string, string, string> PrivateMessage;
-        event Action<User, string> UserTyping;
-        event Action<User, string> GravatarChanged;
+        event Action<IUser, string> UserTyping;
+        event Action<IUser, string> GravatarChanged;
         event Action<string, string, string> MeMessageReceived;
-        event Action<string, User, string> UsernameChanged;
-        event Action<User, string> NoteChanged;
-        event Action<User, string> FlagChanged;
+        event Action<string, IUser, string> UsernameChanged;
+        event Action<IUser, string> NoteChanged;
+        event Action<IUser, string> FlagChanged;
         event Action<string, string, string> TopicChanged;
-        event Action<User, string> OwnerAdded;
-        event Action<User, string> OwnerRemoved;
+        event Action<IUser, string> OwnerAdded;
+        event Action<IUser, string> OwnerRemoved;
         event Action<string, string, string> AddMessageContent;
         event Action<Room> JoinedRoom;
         event Action<Room> RoomChanged;
-        event Action<User> UserActivityChanged;
-        event Action<IEnumerable<User>> UsersInactive;
+        event Action<IUser> UserActivityChanged;
+        event Action<IEnumerable<IUser>> UsersInactive;
         event Action Disconnected;
         event Action<StateChange> StateChanged;
 
@@ -127,7 +127,7 @@ namespace MMBot.Jabbr.JabbrClient
         ICredentials Credentials { get; set; }
 
         Task<LogOnInfo> Connect(string name, string password);
-        Task<User> GetUserInfo();
+        Task<IUser> GetUserInfo();
         Task LogOut();
         Task<bool> Send(string message, string roomName);
         Task<bool> Send(ClientMessage message);
@@ -173,26 +173,26 @@ namespace MMBot.Jabbr.JabbrClient
 
         public event Action<JabbrClient.Models.Message, string> MessageReceived;
         public event Action<IEnumerable<string>> LoggedOut;
-        public event Action<User, string, bool> UserJoined;
-        public event Action<User, string> UserLeft;
+        public event Action<IUser, string, bool> UserJoined;
+        public event Action<IUser, string> UserLeft;
         public event Action<string> Kicked;
         public event Action<string, string, string> PrivateMessage;
-        public event Action<User, string> UserTyping;
-        public event Action<User, string> GravatarChanged;
+        public event Action<IUser, string> UserTyping;
+        public event Action<IUser, string> GravatarChanged;
         public event Action<string, string, string> MeMessageReceived;
-        public event Action<string, User, string> UsernameChanged;
-        public event Action<User, string> NoteChanged;
-        public event Action<User, string> FlagChanged;
+        public event Action<string, IUser, string> UsernameChanged;
+        public event Action<IUser, string> NoteChanged;
+        public event Action<IUser, string> FlagChanged;
         public event Action<string, string, string> TopicChanged;
-        public event Action<User, string> OwnerAdded;
-        public event Action<User, string> OwnerRemoved;
+        public event Action<IUser, string> OwnerAdded;
+        public event Action<IUser, string> OwnerRemoved;
         public event Action<string, string, string> AddMessageContent;
         public event Action<Room> JoinedRoom;
 
         // Global
         public event Action<Room> RoomChanged;
-        public event Action<User> UserActivityChanged;
-        public event Action<IEnumerable<User>> UsersInactive;
+        public event Action<IUser> UserActivityChanged;
+        public event Action<IEnumerable<IUser>> UsersInactive;
 
         public string SourceUrl { get; private set; }
         public bool AutoReconnect { get; set; }
@@ -299,9 +299,9 @@ namespace MMBot.Jabbr.JabbrClient
             return await tcs.Task;
         }
 
-        public Task<User> GetUserInfo()
+        public Task<IUser> GetUserInfo()
         {
-            return _chat.Invoke<User>("GetUserInfo");
+            return _chat.Invoke<IUser>("GetUserInfo");
         }
 
         public Task LogOut()
@@ -437,12 +437,12 @@ namespace MMBot.Jabbr.JabbrClient
                 Execute(LoggedOut, loggedOut => loggedOut(rooms));
             });
 
-            _chat.On<User, string, bool>(ClientEvents.AddUser, (user, room, isOwner) =>
+            _chat.On<IUser, string, bool>(ClientEvents.AddUser, (user, room, isOwner) =>
             {
                 Execute(UserJoined, userJoined => userJoined(user, room, isOwner));
             });
 
-            _chat.On<User, string>(ClientEvents.Leave, (user, room) =>
+            _chat.On<IUser, string>(ClientEvents.Leave, (user, room) =>
             {
                 Execute(UserLeft, userLeft => userLeft(user, room));
             });
@@ -457,7 +457,7 @@ namespace MMBot.Jabbr.JabbrClient
                 Execute(RoomChanged, roomChanged => roomChanged(room));
             });
 
-            _chat.On<User, string>(ClientEvents.UpdateActivity, (user, roomName) =>
+            _chat.On<IUser, string>(ClientEvents.UpdateActivity, (user, roomName) =>
             {
                 Execute(UserActivityChanged, userActivityChanged => userActivityChanged(user));
             });
@@ -467,17 +467,17 @@ namespace MMBot.Jabbr.JabbrClient
                 Execute(PrivateMessage, privateMessage => privateMessage(from, to, message));
             });
 
-            _chat.On<IEnumerable<User>>(ClientEvents.MarkInactive, (users) =>
+            _chat.On<IEnumerable<IUser>>(ClientEvents.MarkInactive, (users) =>
             {
                 Execute(UsersInactive, usersInactive => usersInactive(users));
             });
 
-            _chat.On<User, string>(ClientEvents.SetTyping, (user, room) =>
+            _chat.On<IUser, string>(ClientEvents.SetTyping, (user, room) =>
             {
                 Execute(UserTyping, userTyping => userTyping(user, room));
             });
 
-            _chat.On<User, string>(ClientEvents.GravatarChanged, (user, room) =>
+            _chat.On<IUser, string>(ClientEvents.GravatarChanged, (user, room) =>
             {
                 Execute(GravatarChanged, gravatarChanged => gravatarChanged(user, room));
             });
@@ -487,17 +487,17 @@ namespace MMBot.Jabbr.JabbrClient
                 Execute(MeMessageReceived, meMessageReceived => meMessageReceived(user, content, room));
             });
 
-            _chat.On<string, User, string>(ClientEvents.UsernameChanged, (oldUserName, user, room) =>
+            _chat.On<string, IUser, string>(ClientEvents.UsernameChanged, (oldUserName, user, room) =>
             {
                 Execute(UsernameChanged, usernameChanged => usernameChanged(oldUserName, user, room));
             });
 
-            _chat.On<User, string>(ClientEvents.NoteChanged, (user, room) =>
+            _chat.On<IUser, string>(ClientEvents.NoteChanged, (user, room) =>
             {
                 Execute(NoteChanged, noteChanged => noteChanged(user, room));
             });
 
-            _chat.On<User, string>(ClientEvents.FlagChanged, (user, room) =>
+            _chat.On<IUser, string>(ClientEvents.FlagChanged, (user, room) =>
             {
                 Execute(FlagChanged, flagChanged => flagChanged(user, room));
             });
@@ -507,12 +507,12 @@ namespace MMBot.Jabbr.JabbrClient
                 Execute(TopicChanged, topicChanged => topicChanged(roomName, topic, who));
             });
 
-            _chat.On<User, string>(ClientEvents.OwnerAdded, (user, room) =>
+            _chat.On<IUser, string>(ClientEvents.OwnerAdded, (user, room) =>
             {
                 Execute(OwnerAdded, ownerAdded => ownerAdded(user, room));
             });
 
-            _chat.On<User, string>(ClientEvents.OwnerRemoved, (user, room) =>
+            _chat.On<IUser, string>(ClientEvents.OwnerRemoved, (user, room) =>
             {
                 Execute(OwnerRemoved, ownerRemoved => ownerRemoved(user, room));
             });

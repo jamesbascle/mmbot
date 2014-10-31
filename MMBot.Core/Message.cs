@@ -2,7 +2,7 @@
 {
     public class Message
     {
-        public User User { get; protected set; }
+        public IUser User { get; protected set; }
 
         public bool Done { get; set; }
 
@@ -14,7 +14,7 @@
 
     public class TextMessage : Message
     {
-        public TextMessage(User user, string text)
+        public TextMessage(IUser user, string text)
         {
             User = user;
             Text = text;
@@ -25,7 +25,7 @@
 
     public class EnterMessage : Message
     {
-        public EnterMessage(User user)
+        public EnterMessage(IUser user)
         {
             User = user;
         }
@@ -33,7 +33,7 @@
 
     public class LeaveMessage : Message
     {
-        public LeaveMessage(User user)
+        public LeaveMessage(IUser user)
         {
             User = user;
         }
@@ -41,7 +41,7 @@
 
     public class TopicMessage : Message
     {
-        public TopicMessage(User user, string topic)
+        public TopicMessage(IUser user, string topic)
         {
             User = user;
             Topic = topic;
@@ -52,7 +52,7 @@
 
     public class CatchAllMessage : Message
     {
-        public CatchAllMessage(User user, string textData)
+        public CatchAllMessage(IUser user, string textData)
         {
             User = user;
             Text = textData;

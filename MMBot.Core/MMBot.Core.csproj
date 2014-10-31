@@ -168,6 +168,7 @@
     <Compile Include="IMustBeInitializedWithRobot.cs" />
     <Compile Include="IRobot.cs" />
     <Compile Include="IRobotPluginLocator.cs" />
+    <Compile Include="IUser.cs" />
     <Compile Include="Listeners\CatchAllListener.cs" />
     <Compile Include="Listeners\IListener.cs" />
     <Compile Include="GenericEqualityComparer.cs" />
